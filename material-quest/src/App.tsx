@@ -1,3 +1,6 @@
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import SectionWrapper from './components/SectionWrapper';
 import HeroSection from './components/HeroSection';
 import TimelineSection from './components/TimelineSection';
 import AncientMaterialismSection from './components/AncientMaterialismSection';
@@ -10,17 +13,22 @@ import ReferencesSection from './components/ReferencesSection';
 
 function App() {
   return (
-    <main className="bg-slate-950 text-slate-100">
+    <div className="bg-slate-50 text-slate-800 min-h-screen">
+      <Navbar />
+
       <HeroSection />
-      <TimelineSection />
-      <AncientMaterialismSection />
-      <ScientificRevolutionSection />
-      <MatterDissolvesSimulation />
-      <LeninDefinitionSection />
-      <CategoryInstanceActivity />
-      <QuizSection />
-      <ReferencesSection />
-    </main>
+
+      <SectionWrapper><TimelineSection /></SectionWrapper>
+      <SectionWrapper><AncientMaterialismSection /></SectionWrapper>
+      <SectionWrapper><ScientificRevolutionSection /></SectionWrapper>
+      <SectionWrapper><MatterDissolvesSimulation /></SectionWrapper>
+      <SectionWrapper><LeninDefinitionSection /></SectionWrapper>
+      <SectionWrapper><CategoryInstanceActivity /></SectionWrapper>
+      <SectionWrapper><QuizSection /></SectionWrapper>
+      <SectionWrapper><ReferencesSection /></SectionWrapper>
+
+      <Footer />
+    </div>
   );
 }
 

@@ -1,64 +1,88 @@
 import { motion } from 'framer-motion';
-import { BookOpen, Globe, Library } from 'lucide-react';
+import { BookOpen, Globe, Library, ExternalLink } from 'lucide-react';
 import { references } from '../data/materialQuestData';
+import SectionHeader from './ui/SectionHeader';
+import Container from './ui/Container';
 
 const iconMap: Record<string, React.ReactNode> = {
-  'giao-trinh-2021': <Library className="w-8 h-8 text-amber-400" />,
-  'giao-trinh-2010': <BookOpen className="w-8 h-8 text-amber-400" />,
-  'marxists-org': <Globe className="w-8 h-8 text-amber-400" />,
+  'giao-trinh-2021': <Library className="w-6 h-6" />,
+  'giao-trinh-2010': <BookOpen className="w-6 h-6" />,
+  'marxists-org':    <Globe className="w-6 h-6" />,
 };
 
 export default function ReferencesSection() {
   return (
-    <section className="py-20 px-4 bg-slate-950">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl font-bold text-slate-100 mb-3">Tài liệu tham khảo</h2>
-          <p className="text-slate-400">Các nguồn học thuật được sử dụng trong website</p>
-        </motion.div>
+    <section id="references" className="py-24 bg-slate-50">
+      <Container size="lg">
+        <SectionHeader
+          eyebrow="Tài liệu tham khảo"
+          title="Nguồn học thuật"
+          subtitle="Các tài liệu chính thống được sử dụng trong việc xây dựng nội dung của Material Quest"
+        />
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {references.map((ref, index) => (
-            <motion.div
-              key={ref.id}
-              initial={{ opacity: 0, y: 30 }}
+        <div className="grid md:grid-cols-3 gap-6">
+          {references.map((ref, i) => (
+            <motion.div key={ref.id}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="bg-slate-900 border border-indigo-800 rounded-xl p-6 flex flex-col gap-4"
-            >
-              <div className="flex items-center gap-3">
-                {iconMap[ref.id]}
+              transition={{ duration: 0.45, delay: i * 0.12, ease: 'easeOut' }}
+              className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-900 flex items-center justify-center text-amber-400 shrink-0">
+                  {iconMap[ref.id]}
+                </div>
                 <div>
-                  <h3 className="text-slate-100 font-semibold leading-tight">{ref.title}</h3>
-                  {ref.year && (
-                    <span className="text-amber-400 text-sm">{ref.year}</span>
-                  )}
+                  <h3 className="text-slate-800 font-bold leading-tight text-base">{ref.title}</h3>
+                  {ref.year && <span className="text-amber-600 text-sm font-semibold">{ref.year}</span>}
                 </div>
               </div>
 
-              <p className="text-slate-400 text-sm leading-relaxed flex-1">{ref.description}</p>
+              <p className="text-slate-500 text-sm leading-relaxed flex-1">{ref.description}</p>
 
               {ref.url && (
-                <a
-                  href={ref.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-amber-400 text-sm hover:text-amber-300 transition-colors underline underline-offset-2"
-                >
-                  {ref.url}
+                <a href={ref.url} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-blue-700 text-sm font-medium hover:text-blue-900 transition-colors">
+                  <ExternalLink className="w-4 h-4" />
+                  Truy cập tài liệu
                 </a>
               )}
             </motion.div>
           ))}
         </div>
-      </div>
+
+        {/* About section */}
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+          className="mt-16 bg-blue-950 rounded-3xl p-8 md:p-12">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/20 border border-amber-400/30 px-3 py-1 rounded-full">
+                Về Material Quest
+              </span>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                Nền tảng học tập triết học tương tác
+              </h3>
+              <p className="text-blue-200 leading-relaxed">
+                Material Quest được xây dựng nhằm giúp sinh viên, giảng viên và người học triết học tiếp cận nội dung phạm trù vật chất một cách trực quan, dễ hiểu và thú vị.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: 'Sinh viên đại học',       icon: '🎓' },
+                { label: 'Giảng viên triết học',    icon: '📚' },
+                { label: 'Người học triết học',     icon: '🔍' },
+                { label: 'Chuẩn bị thuyết trình',  icon: '🎯' },
+              ].map(item => (
+                <div key={item.label} className="bg-white/10 border border-white/10 rounded-2xl p-4 text-center">
+                  <div className="text-2xl mb-2">{item.icon}</div>
+                  <p className="text-white text-sm font-medium">{item.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </Container>
     </section>
   );
 }

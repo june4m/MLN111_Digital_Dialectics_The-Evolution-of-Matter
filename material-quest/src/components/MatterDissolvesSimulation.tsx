@@ -1,158 +1,115 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Atom } from 'lucide-react';
+import { Atom, Info } from 'lucide-react';
+import SectionHeader from './ui/SectionHeader';
+import Container from './ui/Container';
 
-const QUOTE =
-  'Cái tiêu tan không phải là vật chất, mà là giới hạn hiểu biết cũ về vật chất.';
+const QUOTE = 'Cái tiêu tan không phải là vật chất, mà là giới hạn hiểu biết cũ về vật chất.';
+
+const statusMessages = [
+  { max: 0,   text: 'Nguyên tử ổn định — quỹ đạo electron rõ ràng',         color: 'text-emerald-700 bg-emerald-50 border-emerald-200' },
+  { max: 40,  text: 'Electron tăng tốc — quỹ đạo bắt đầu mờ dần',           color: 'text-blue-700 bg-blue-50 border-blue-200' },
+  { max: 70,  text: 'Tốc độ cao — ranh giới vật chất cổ điển tan vỡ',        color: 'text-orange-700 bg-orange-50 border-orange-200' },
+  { max: 100, text: 'Khủng hoảng vật lý học! Nhưng vật chất vẫn tồn tại...', color: 'text-rose-700 bg-rose-50 border-rose-200' },
+];
+
+function getStatus(speed: number) {
+  if (speed === 0) return statusMessages[0];
+  if (speed <= 40) return statusMessages[1];
+  if (speed <= 70) return statusMessages[2];
+  return statusMessages[3];
+}
 
 export default function MatterDissolvesSimulation() {
   const [speed, setSpeed] = useState(0);
-
-  // Derived values from speed (0–100)
   const orbitOpacity = 1 - speed / 100;
-  const shakeIntensity = speed / 10; // 0–10 px
-  const animationDuration = 4 - (speed / 100) * 3; // 4s → 1s
-
-  // Random shake offset, updated on each render when speed > 0
+  const shakeIntensity = speed / 10;
+  const animationDuration = 4 - (speed / 100) * 3;
   const shakeX = useShakeX(shakeIntensity);
+  const status = getStatus(speed);
 
   return (
-    <section className="py-20 px-4 bg-slate-950">
-      <div className="max-w-3xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-14"
-        >
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <Atom className="w-7 h-7 text-amber-400" />
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-100">
-              Vật chất "tiêu tan"?
-            </h2>
+    <section id="simulation" className="py-24 bg-slate-50">
+      <Container size="md">
+        <SectionHeader
+          eyebrow="Mô phỏng tương tác"
+          title='Vật chất có thực sự "tiêu tan"?'
+          subtitle="Kéo thanh trượt để tăng tốc độ electron và quan sát điều xảy ra với nguyên tử"
+        />
+
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 md:p-12">
+          {/* Atom visual */}
+          <div className="flex justify-center mb-10">
+            <motion.div animate={{ x: shakeX }} transition={{ duration: 0.08, ease: 'easeInOut' }}
+              className="relative flex items-center justify-center" style={{ width: 220, height: 220 }}>
+              {/* Outer glow */}
+              <div className="absolute inset-0 rounded-full"
+                style={{ background: `radial-gradient(circle, rgba(30,58,138,${speed / 400}) 0%, transparent 70%)` }} />
+
+              {/* Ring 1 */}
+              <div className="spin-cw absolute rounded-full border-2 border-blue-400"
+                style={{ width: 180, height: 180, opacity: orbitOpacity, ['--orbit-duration' as string]: `${animationDuration}s` }}>
+                <span className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-blue-500 shadow-md shadow-blue-400/50"
+                  style={{ opacity: orbitOpacity }} />
+              </div>
+
+              {/* Ring 2 */}
+              <div className="spin-ccw absolute rounded-full border-2 border-amber-400"
+                style={{ width: 130, height: 130, opacity: orbitOpacity, transform: 'rotate(60deg)', ['--orbit-duration' as string]: `${animationDuration * 0.75}s` }}>
+                <span className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-amber-400 shadow-md shadow-amber-400/50"
+                  style={{ opacity: orbitOpacity }} />
+              </div>
+
+              {/* Nucleus */}
+              <div className="relative z-10 flex items-center justify-center rounded-full bg-blue-900 border-4 border-blue-700 shadow-xl shadow-blue-900/40"
+                style={{ width: 60, height: 60, filter: `brightness(${1 + speed / 150})` }}>
+                <Atom className="w-6 h-6 text-blue-200" />
+              </div>
+            </motion.div>
           </div>
-          <p className="text-slate-400 text-lg">
-            Kéo thanh trượt để tăng tốc độ electron và quan sát điều xảy ra
-          </p>
-        </motion.div>
 
-        {/* Atom visual */}
-        <div className="flex flex-col items-center gap-10">
-          <motion.div
-            animate={{ x: shakeX }}
-            transition={{ duration: 0.08, ease: 'easeInOut' }}
-            className="relative flex items-center justify-center"
-            style={{ width: 200, height: 200 }}
-          >
-            {/* Orbit ring 1 — clockwise */}
-            <div
-              className="spin-cw absolute rounded-full border border-indigo-400"
-              style={{
-                width: 160,
-                height: 160,
-                opacity: orbitOpacity,
-                // CSS variable drives animation duration
-                ['--orbit-duration' as string]: `${animationDuration}s`,
-              }}
-            >
-              {/* Electron dot on ring 1 */}
-              <span
-                className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-indigo-400"
-                style={{ opacity: orbitOpacity }}
-              />
+          {/* Status badge */}
+          <div className={`flex items-center gap-2 px-4 py-3 rounded-xl border text-sm font-medium mb-8 ${status.color}`}>
+            <Info className="w-4 h-4 shrink-0" />
+            {status.text}
+          </div>
+
+          {/* Slider */}
+          <div className="mb-10">
+            <div className="flex justify-between items-center mb-3">
+              <label htmlFor="electron-speed" className="text-sm font-semibold text-slate-700">
+                Tốc độ Electron
+              </label>
+              <span className="text-lg font-bold text-blue-900">{speed}%</span>
             </div>
-
-            {/* Orbit ring 2 — counter-clockwise, tilted */}
-            <div
-              className="spin-ccw absolute rounded-full border border-cyan-400"
-              style={{
-                width: 120,
-                height: 120,
-                opacity: orbitOpacity,
-                transform: `rotate(60deg)`,
-                ['--orbit-duration' as string]: `${animationDuration * 0.75}s`,
-              }}
-            >
-              {/* Electron dot on ring 2 */}
-              <span
-                className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-cyan-400"
-                style={{ opacity: orbitOpacity }}
-              />
-            </div>
-
-            {/* Nucleus */}
-            <div
-              className="relative z-10 flex items-center justify-center rounded-full bg-indigo-600 border-2 border-indigo-400 shadow-lg shadow-indigo-500/40"
-              style={{
-                width: 52,
-                height: 52,
-                filter: `brightness(${1 + speed / 200})`,
-              }}
-            >
-              <span className="text-xs font-bold text-white select-none">+</span>
-            </div>
-          </motion.div>
-
-          {/* Speed slider */}
-          <div className="w-full max-w-sm">
-            <label
-              htmlFor="electron-speed"
-              className="block text-center text-sm font-medium text-slate-300 mb-3"
-            >
-              Electron Speed:{' '}
-              <span className="text-amber-400 font-bold">{speed}%</span>
-            </label>
-            <input
-              id="electron-speed"
-              type="range"
-              min={0}
-              max={100}
-              value={speed}
-              onChange={(e) => setSpeed(Number(e.target.value))}
-              className="w-full accent-amber-400 cursor-pointer"
-              aria-label="Electron speed"
-            />
-            <div className="flex justify-between text-xs text-slate-500 mt-1">
-              <span>Chậm</span>
-              <span>Nhanh</span>
+            <input id="electron-speed" type="range" min={0} max={100} value={speed}
+              onChange={e => setSpeed(Number(e.target.value))}
+              className="w-full h-2 accent-blue-900 cursor-pointer rounded-full" />
+            <div className="flex justify-between text-xs text-slate-400 mt-2">
+              <span>Chậm (ổn định)</span>
+              <span>Nhanh (khủng hoảng)</span>
             </div>
           </div>
 
-          {/* Status label */}
-          <p className="text-sm text-slate-400 text-center">
-            {speed === 0 && 'Nguyên tử ổn định — quỹ đạo rõ ràng'}
-            {speed > 0 && speed <= 40 && 'Electron tăng tốc — quỹ đạo bắt đầu mờ dần'}
-            {speed > 40 && speed <= 70 && 'Tốc độ cao — ranh giới vật chất cổ điển tan vỡ'}
-            {speed > 70 && 'Khủng hoảng vật lý học! Nhưng vật chất vẫn tồn tại...'}
-          </p>
-
-          {/* Quote — always visible */}
-          <motion.blockquote
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="border-l-4 border-amber-400 pl-5 py-2 max-w-xl text-center"
-          >
-            <p className="text-slate-200 italic text-lg leading-relaxed">
-              "{QUOTE}"
-            </p>
-            <footer className="mt-2 text-sm text-amber-400 font-medium">
-              — V.I. Lênin, 1908
-            </footer>
-          </motion.blockquote>
+          {/* Lenin quote */}
+          <div className="bg-blue-950 rounded-2xl p-6 md:p-8">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center shrink-0">
+                <span className="text-white font-bold text-lg">"</span>
+              </div>
+              <div>
+                <p className="text-blue-100 italic text-lg leading-relaxed mb-3">"{QUOTE}"</p>
+                <p className="text-amber-400 font-semibold text-sm">— V.I. Lênin, 1908</p>
+                <p className="text-blue-400 text-xs mt-1">Chủ nghĩa duy vật và chủ nghĩa kinh nghiệm phê phán</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
 
-/**
- * Returns a continuously updating random x offset scaled by intensity.
- * Resets to 0 when intensity is 0.
- */
 function useShakeX(intensity: number): number {
   const [x, setX] = useState(0);
   const rafRef = useRef<number>(0);
@@ -162,21 +119,14 @@ function useShakeX(intensity: number): number {
       rafRef.current = window.setTimeout(() => setX(0), 0);
       return () => clearTimeout(rafRef.current);
     }
-
     let running = true;
-
     function tick() {
       if (!running) return;
       setX((Math.random() * 2 - 1) * intensity);
       rafRef.current = window.setTimeout(tick, 80);
     }
-
     tick();
-
-    return () => {
-      running = false;
-      clearTimeout(rafRef.current);
-    };
+    return () => { running = false; clearTimeout(rafRef.current); };
   }, [intensity]);
 
   return x;
