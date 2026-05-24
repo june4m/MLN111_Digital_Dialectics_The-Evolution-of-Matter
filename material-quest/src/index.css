@@ -49,22 +49,22 @@ html { scroll-behavior: smooth; }
   from { transform: rotate(240deg) translateX(60px) rotate(-240deg); }
   to   { transform: rotate(600deg) translateX(60px) rotate(-600deg); }
 }
-.orbit-slow   { animation: orbit-slow   4s linear infinite; }
-.orbit-medium { animation: orbit-medium 2.8s linear infinite; }
-.orbit-fast   { animation: orbit-fast   1.8s linear infinite; }
-
-/* ── Electron spin ── */
 @keyframes spin-cw  { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
 @keyframes spin-ccw { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
-.spin-cw  { animation: spin-cw  var(--orbit-duration, 3s) linear infinite; }
-.spin-ccw { animation: spin-ccw var(--orbit-duration, 4s) linear infinite; }
-
-/* ── Pulse ── */
 @keyframes pulse-slow {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.65; }
 }
-.pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+
+/* ── Custom utility classes — kept outside @layer so Tailwind won't purge them ── */
+@layer utilities {
+  .orbit-slow   { animation: orbit-slow   4s linear infinite; }
+  .orbit-medium { animation: orbit-medium 2.8s linear infinite; }
+  .orbit-fast   { animation: orbit-fast   1.8s linear infinite; }
+  .spin-cw      { animation: spin-cw  var(--orbit-duration, 3s) linear infinite; }
+  .spin-ccw     { animation: spin-ccw var(--orbit-duration, 4s) linear infinite; }
+  .pulse-slow   { animation: pulse-slow 3s ease-in-out infinite; }
+}
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
