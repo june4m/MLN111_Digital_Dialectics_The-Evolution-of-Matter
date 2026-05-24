@@ -32,7 +32,7 @@ export default function ScientificRevolutionSection() {
   const selected: ScientificDiscovery | undefined = scientificDiscoveries.find(d => d.id === selectedId);
 
   return (
-    <section id="science" className="py-24 bg-white">
+    <section id="science" className="py-24">
       <Container size="xl">
         <SectionHeader
           eyebrow="Cuộc cách mạng khoa học"
@@ -53,7 +53,7 @@ export default function ScientificRevolutionSection() {
                   className={`w-full text-left rounded-2xl border-2 border-l-4 p-5 transition-all duration-300 cursor-pointer
                     ${isSelected
                       ? `${cardAccents[i]} border-opacity-100 shadow-lg`
-                      : 'bg-slate-50 border-slate-200 border-l-slate-300 hover:shadow-md hover:border-slate-300'}`}>
+                      : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 border-l-slate-300 dark:border-l-slate-600 hover:shadow-md hover:border-slate-300'}`}>
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-colors
                     ${isSelected ? 'bg-blue-900 text-white' : 'bg-white text-slate-500 border border-slate-200'}`}>
                     {getIcon(d.scientist)}

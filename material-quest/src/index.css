@@ -1,18 +1,36 @@
 @import "tailwindcss";
 
-/* ── Custom CSS variables ── */
+/* ── Enable class-based dark mode ── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Light mode tokens ── */
 :root {
-  --color-primary: #1E3A8A;
-  --color-deep: #312E81;
-  --color-gold: #F59E0B;
-  --color-amber: #D97706;
-  --color-bg: #F8FAFC;
-  --color-bg2: #F5F3EA;
-  --color-text: #0F172A;
-  --color-text2: #475569;
-  --color-muted: #64748B;
-  --color-card: #FFFFFF;
-  --color-border: #E2E8F0;
+  --bg-page:    #F2F0E8;   /* warm parchment — dễ nhìn, academic */
+  --bg-card:    #FFFFFF;
+  --bg-subtle:  #EAE8DF;
+  --border:     #DDD9CC;
+  --text-1:     #1A1A2E;
+  --text-2:     #4A4A6A;
+  --text-muted: #8A8AA0;
+  --primary:    #1E3A8A;
+  --primary-fg: #FFFFFF;
+  --gold:       #F59E0B;
+  --gold-dark:  #D97706;
+}
+
+/* ── Dark mode tokens ── */
+.dark {
+  --bg-page:    #1E2D45;   /* slate-navy — sáng hơn, dịu mắt, không quá tối */
+  --bg-card:    #263652;   /* blue-slate card — nổi bật rõ trên nền */
+  --bg-subtle:  #2C3E5E;   /* slate subtle — section xen kẽ */
+  --border:     #3D5478;   /* border xanh vừa — thấy rõ, không chói */
+  --text-1:     #EEF4FF;   /* gần trắng, pha xanh nhẹ — dễ đọc */
+  --text-2:     #A8C4E0;   /* blue-gray sáng — secondary text */
+  --text-muted: #6E90B4;   /* muted blue — caption, placeholder */
+  --primary:    #7DC4FF;   /* sky-blue sáng — accent nổi bật */
+  --primary-fg: #0F1E33;
+  --gold:       #FBBF24;
+  --gold-dark:  #F59E0B;
 }
 
 /* ── Smooth scroll ── */
@@ -41,54 +59,20 @@ html { scroll-behavior: smooth; }
 .spin-cw  { animation: spin-cw  var(--orbit-duration, 3s) linear infinite; }
 .spin-ccw { animation: spin-ccw var(--orbit-duration, 4s) linear infinite; }
 
-/* ── Subtle pulse for hero badge ── */
+/* ── Pulse ── */
 @keyframes pulse-slow {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0.7; }
+  50%       { opacity: 0.65; }
 }
 .pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
 
-/* ── Timeline connector ── */
-.timeline-line::before {
-  content: '';
-  position: absolute;
-  top: 20px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #1E3A8A 0%, #F59E0B 100%);
-}
-
-/* ── Gradient heading utility ── */
-.heading-gradient {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-deep) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── Keyword accent ── */
-.keyword-gold {
-  color: var(--color-gold);
-  font-weight: 600;
-}
-
-/* ── Accessibility: respect reduced motion ── */
+/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  /* Framer Motion respects this via its own hook, but ensure CSS animations stop too */
-  .orbit-slow,
-  .orbit-medium,
-  .orbit-fast,
-  .spin-cw,
-  .spin-ccw,
-  .pulse-slow {
-    animation: none !important;
-  }
+  .orbit-slow, .orbit-medium, .orbit-fast,
+  .spin-cw, .spin-ccw, .pulse-slow { animation: none !important; }
 }

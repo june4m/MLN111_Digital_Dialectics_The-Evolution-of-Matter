@@ -32,7 +32,7 @@ export default function LeninDefinitionSection() {
   }
 
   return (
-    <section id="lenin" className="py-24 bg-white">
+    <section id="lenin" className="py-24">
       <Container size="md">
         <SectionHeader
           eyebrow="Định nghĩa kinh điển"
@@ -94,7 +94,7 @@ export default function LeninDefinitionSection() {
                 className={`w-full text-left p-5 rounded-2xl border-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500
                   ${selected?.id === phrase.id
                     ? 'bg-blue-900 border-blue-900 text-white shadow-lg shadow-blue-900/20'
-                    : 'bg-slate-50 border-slate-200 hover:border-blue-300 hover:bg-blue-50'}`}
+                    : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700'}`}
               >
                 <p className={`font-semibold text-sm leading-snug ${selected?.id === phrase.id ? 'text-amber-300' : 'text-blue-900'}`}>
                   "{phrase.phrase}"

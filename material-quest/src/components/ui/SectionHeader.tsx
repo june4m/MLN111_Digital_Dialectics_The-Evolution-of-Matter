@@ -45,21 +45,21 @@ export default function SectionHeader({
       {eyebrow && (
         <motion.span
           variants={item}
-          className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-amber-600 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full"
+          className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 px-3 py-1 rounded-full"
         >
           {eyebrow}
         </motion.span>
       )}
       <motion.h2
         variants={item}
-        className="text-3xl md:text-4xl font-bold leading-tight mb-4 bg-gradient-to-r from-blue-900 to-indigo-700 bg-clip-text text-transparent"
+        className="text-3xl md:text-4xl font-bold leading-tight mb-4 bg-gradient-to-r from-blue-900 to-indigo-700 dark:from-blue-400 dark:to-indigo-300 bg-clip-text text-transparent"
       >
         {title}
       </motion.h2>
       {subtitle && (
         <motion.p
           variants={item}
-          className="text-lg text-slate-500 max-w-2xl leading-relaxed"
+          className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed"
         >
           {subtitle}
         </motion.p>

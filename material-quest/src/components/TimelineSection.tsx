@@ -33,7 +33,7 @@ export default function TimelineSection() {
   const selected: TimelineMilestone | undefined = timelineMilestones.find(m => m.id === selectedId);
 
   return (
-    <section id="timeline" className="py-24 bg-white">
+    <section id="timeline" className="py-24">
       <Container size="xl">
         <SectionHeader
           eyebrow="Lịch sử phát triển"
@@ -59,7 +59,7 @@ export default function TimelineSection() {
                   onClick={() => setSelectedId(isSelected ? null : m.id)}
                   aria-pressed={isSelected}
                   className={`relative flex flex-col items-center text-center p-4 rounded-2xl border-2 transition-all duration-300 cursor-pointer group
-                    ${isSelected ? `${c.bg} ${c.border} shadow-lg scale-105` : 'bg-slate-50 border-slate-200 hover:border-slate-300 hover:shadow-md hover:-translate-y-1'}`}>
+                    ${isSelected ? `${c.bg} ${c.border} shadow-lg scale-105` : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 hover:shadow-md hover:-translate-y-1'}`}>
                   {/* Node dot on line */}
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-3 text-white transition-all ${isSelected ? c.icon : 'bg-slate-400 group-hover:bg-slate-600'}`}>
                     <MilestoneIcon name={m.icon} />
@@ -88,7 +88,7 @@ export default function TimelineSection() {
                 onClick={() => setSelectedId(isSelected ? null : m.id)}
                 aria-pressed={isSelected}
                 className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all duration-300
-                  ${isSelected ? `${c.bg} ${c.border}` : 'bg-slate-50 border-slate-200'}`}>
+                  ${isSelected ? `${c.bg} ${c.border}` : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700'}`}>
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white shrink-0 ${isSelected ? c.icon : 'bg-slate-400'}`}>
                   <MilestoneIcon name={m.icon} />
                 </div>

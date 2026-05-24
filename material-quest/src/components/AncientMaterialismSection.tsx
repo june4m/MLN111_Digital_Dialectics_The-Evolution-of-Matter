@@ -36,7 +36,7 @@ function FiveElementsSubSection() {
               onClick={() => setSelectedId(isSelected ? null : el.id)}
               aria-pressed={isSelected}
               className={`flex flex-col items-center gap-2 w-28 py-5 rounded-2xl border-2 transition-all duration-300 cursor-pointer
-                ${isSelected ? `${s.bg} ${s.border} shadow-lg ${s.glow}` : 'bg-white border-slate-200 hover:border-slate-300 hover:shadow-md'}`}>
+                ${isSelected ? `${s.bg} ${s.border} shadow-lg ${s.glow}` : 'bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 hover:border-slate-300 hover:shadow-md'}`}>
               <span className={`text-4xl font-bold ${s.charColor}`}>{el.character}</span>
               <span className="text-sm font-bold text-slate-700">{el.name}</span>
               <ChevronDown className={`w-3 h-3 transition-transform ${isSelected ? 'rotate-180 text-slate-500' : 'text-slate-300'}`} />
@@ -100,7 +100,7 @@ function WaterFireSubSection() {
         <motion.button onClick={handleWaterClick} aria-pressed={selectedId === 'thales'}
           animate={waterControls} whileHover={{ scale: 1.02, y: -3 }} whileTap={{ scale: 0.98 }}
           className={`relative rounded-2xl border-2 p-6 text-left cursor-pointer transition-all duration-300
-            ${selectedId === 'thales' ? 'bg-blue-50 border-blue-400 shadow-lg shadow-blue-100' : 'bg-white border-slate-200 hover:border-blue-300 hover:shadow-md'}`}>
+            ${selectedId === 'thales' ? 'bg-blue-50 border-blue-400 shadow-lg shadow-blue-100' : 'bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 hover:border-blue-300 hover:shadow-md'}`}>
           <div className="text-5xl mb-4">💧</div>
           <h4 className="text-lg font-bold text-blue-800 mb-1">Nước</h4>
           <p className="text-sm text-slate-500 font-medium">Thalès · 624–546 TCN</p>
@@ -110,7 +110,7 @@ function WaterFireSubSection() {
         <motion.button onClick={handleFireClick} aria-pressed={selectedId === 'heraclitus'}
           animate={fireControls} whileHover={{ scale: 1.02, y: -3 }} whileTap={{ scale: 0.98 }}
           className={`relative rounded-2xl border-2 p-6 text-left cursor-pointer transition-all duration-300
-            ${selectedId === 'heraclitus' ? 'bg-orange-50 border-orange-400 shadow-lg shadow-orange-100' : 'bg-white border-slate-200 hover:border-orange-300 hover:shadow-md'}`}>
+            ${selectedId === 'heraclitus' ? 'bg-orange-50 border-orange-400 shadow-lg shadow-orange-100' : 'bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 hover:border-orange-300 hover:shadow-md'}`}>
           <div className="text-5xl mb-4">🔥</div>
           <h4 className="text-lg font-bold text-orange-800 mb-1">Lửa</h4>
           <p className="text-sm text-slate-500 font-medium">Heraclite · 535–475 TCN</p>
@@ -217,7 +217,7 @@ export default function AncientMaterialismSection() {
   const [activeTab, setActiveTab] = useState('nguhanh');
 
   return (
-    <section id="ancient" className="py-24 bg-slate-50">
+    <section id="ancient" className="py-24">
       <Container size="lg">
         <SectionHeader
           eyebrow="Chủ nghĩa duy vật cổ đại"
@@ -240,7 +240,7 @@ export default function AncientMaterialismSection() {
         </div>
 
         {/* Tab content */}
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-10">
+        <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm p-6 md:p-10">
           <AnimatePresence mode="wait">
             <motion.div key={activeTab}
               initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}

@@ -30,7 +30,7 @@ export default function MatterDissolvesSimulation() {
   const status = getStatus(speed);
 
   return (
-    <section id="simulation" className="py-24 bg-slate-50">
+    <section id="simulation" className="py-24">
       <Container size="md">
         <SectionHeader
           eyebrow="Mô phỏng tương tác"
@@ -38,7 +38,7 @@ export default function MatterDissolvesSimulation() {
           subtitle="Kéo thanh trượt để tăng tốc độ electron và quan sát điều xảy ra với nguyên tử"
         />
 
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 md:p-12">
+        <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm p-8 md:p-12">
           {/* Atom visual */}
           <div className="flex justify-center mb-10">
             <motion.div animate={{ x: shakeX }} transition={{ duration: 0.08, ease: 'easeInOut' }}

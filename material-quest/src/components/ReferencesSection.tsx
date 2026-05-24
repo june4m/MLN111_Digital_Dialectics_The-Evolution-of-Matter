@@ -14,7 +14,7 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export default function ReferencesSection() {
   return (
-    <section id="references" className="py-24 bg-slate-50">
+    <section id="references" className="py-24">
       <Container size="lg">
         <SectionHeader
           eyebrow="Tài liệu tham khảo"
@@ -25,18 +25,18 @@ export default function ReferencesSection() {
         <StaggerContainer className="grid md:grid-cols-3 gap-6">
           {references.map((ref) => (
             <StaggerItem key={ref.id}>
-              <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 h-full">
+              <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 h-full">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-blue-900 flex items-center justify-center text-amber-400 shrink-0">
                     {iconMap[ref.id]}
                   </div>
                   <div>
-                    <h3 className="text-slate-800 font-bold leading-tight text-base">{ref.title}</h3>
+                    <h3 className="text-slate-800 dark:text-slate-100 font-bold leading-tight text-base">{ref.title}</h3>
                     {ref.year && <span className="text-amber-600 text-sm font-semibold">{ref.year}</span>}
                   </div>
                 </div>
 
-                <p className="text-slate-500 text-sm leading-relaxed flex-1">{ref.description}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed flex-1">{ref.description}</p>
 
                 {ref.url && (
                   <a href={ref.url} target="_blank" rel="noopener noreferrer"

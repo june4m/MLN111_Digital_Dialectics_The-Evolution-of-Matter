@@ -1,28 +1,15 @@
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
-import { staggerContainer } from './animationVariants';
 
-interface StaggerContainerProps {
-  children: ReactNode;
-  className?: string;
-  /** Delay between each child (seconds). Default 0.08 */
-  staggerDelay?: number;
-  /** Initial delay before first child (seconds). Default 0 */
-  delayStart?: number;
-}
+interface Props { children: ReactNode; className?: string; }
 
-export default function StaggerContainer({
-  children,
-  className = '',
-  staggerDelay = 0.08,
-  delayStart = 0,
-}: StaggerContainerProps) {
+export default function StaggerContainer({ children, className = '' }: Props) {
   return (
     <motion.div
-      variants={staggerContainer(staggerDelay, delayStart)}
       initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: '-60px' }}
+      whileInView="visible"
+      viewport={{ once: true, margin: '-40px' }}
+      variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
       className={className}
     >
       {children}

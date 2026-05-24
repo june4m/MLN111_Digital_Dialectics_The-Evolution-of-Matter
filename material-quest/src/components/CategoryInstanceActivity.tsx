@@ -28,7 +28,7 @@ export default function CategoryInstanceActivity() {
   function handleReset() { setCurrentIndex(0); setAnswers({}); setShowFeedback(false); }
 
   return (
-    <section id="classify" className="py-24 bg-slate-50">
+    <section id="classify" className="py-24">
       <Container size="sm">
         <SectionHeader
           eyebrow="Hoạt động phân loại"
@@ -45,7 +45,7 @@ export default function CategoryInstanceActivity() {
             </span>
             <span className="text-emerald-600">{score} đúng</span>
           </div>
-          <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+          <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
             <motion.div className="h-full bg-gradient-to-r from-blue-900 to-amber-500 rounded-full"
               animate={{ width: `${progressPercent}%` }} transition={{ duration: 0.4, ease: 'easeOut' }} />
           </div>
@@ -56,7 +56,7 @@ export default function CategoryInstanceActivity() {
             <motion.div key="summary"
               initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="bg-white border border-slate-200 rounded-3xl p-8 text-center shadow-sm">
+              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl p-8 text-center shadow-sm">
               <div className="w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mx-auto mb-4">
                 <Trophy className="w-8 h-8 text-amber-500" />
               </div>
@@ -93,7 +93,7 @@ export default function CategoryInstanceActivity() {
             <motion.div key={currentIndex}
               initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -40 }} transition={{ duration: 0.3, ease: 'easeOut' }}>
-              <div className="bg-white border border-slate-200 rounded-3xl p-8 mb-4 shadow-sm">
+              <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl p-8 mb-4 shadow-sm">
                 <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">
                   Mục {currentIndex + 1} / {classifyItems.length}
                 </p>
