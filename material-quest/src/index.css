@@ -58,3 +58,37 @@ html { scroll-behavior: smooth; }
   height: 2px;
   background: linear-gradient(90deg, #1E3A8A 0%, #F59E0B 100%);
 }
+
+/* ── Gradient heading utility ── */
+.heading-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-deep) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Keyword accent ── */
+.keyword-gold {
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+/* ── Accessibility: respect reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* Framer Motion respects this via its own hook, but ensure CSS animations stop too */
+  .orbit-slow,
+  .orbit-medium,
+  .orbit-fast,
+  .spin-cw,
+  .spin-ccw,
+  .pulse-slow {
+    animation: none !important;
+  }
+}

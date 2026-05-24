@@ -1,35 +1,68 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 interface SectionHeaderProps {
   eyebrow?: string;
   title: string;
   subtitle?: string;
-  align?: 'left' | 'center';
+  align?: "left" | "center";
 }
 
-export default function SectionHeader({ eyebrow, title, subtitle, align = 'center' }: SectionHeaderProps) {
-  const alignClass = align === 'center' ? 'text-center' : 'text-left';
+const item = {
+  hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.55,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
+  },
+};
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0 } },
+};
+
+export default function SectionHeader({
+  eyebrow,
+  title,
+  subtitle,
+  align = "center",
+}: SectionHeaderProps) {
+  const alignClass =
+    align === "center" ? "text-center items-center" : "text-left items-start";
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`mb-12 ${alignClass}`}
+      variants={container}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-60px" }}
+      className={`mb-12 flex flex-col ${alignClass}`}
     >
       {eyebrow && (
-        <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-amber-600 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
+        <motion.span
+          variants={item}
+          className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-amber-600 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full"
+        >
           {eyebrow}
-        </span>
+        </motion.span>
       )}
-      <h2 className="text-3xl md:text-4xl font-bold text-blue-900 leading-tight mb-4">
+      <motion.h2
+        variants={item}
+        className="text-3xl md:text-4xl font-bold leading-tight mb-4 bg-gradient-to-r from-blue-900 to-indigo-700 bg-clip-text text-transparent"
+      >
         {title}
-      </h2>
+      </motion.h2>
       {subtitle && (
-        <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+        <motion.p
+          variants={item}
+          className="text-lg text-slate-500 max-w-2xl leading-relaxed"
+        >
           {subtitle}
-        </p>
+        </motion.p>
       )}
     </motion.div>
   );

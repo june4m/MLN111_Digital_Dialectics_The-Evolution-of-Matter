@@ -29,14 +29,14 @@ export default function HeroSection() {
   }
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-900 overflow-hidden pt-16">
+    <section id="hero" className="relative min-h-[92vh] lg:min-h-[88vh] flex items-center bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-900 overflow-hidden pt-16">
       {/* Background texture */}
       <div className="absolute inset-0 opacity-5"
         style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
       <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl" />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* Left column */}

@@ -5,6 +5,8 @@ import { scientificDiscoveries } from '../data/materialQuestData';
 import type { ScientificDiscovery } from '../types';
 import SectionHeader from './ui/SectionHeader';
 import Container from './ui/Container';
+import StaggerContainer from './ui/StaggerContainer';
+import StaggerItem from './ui/StaggerItem';
 
 const scientistIcons: Record<string, React.ReactNode> = {
   'Wilhelm Röntgen': <Zap className="w-5 h-5" />,
@@ -39,36 +41,34 @@ export default function ScientificRevolutionSection() {
         />
 
         {/* Discovery grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
+        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
           {scientificDiscoveries.map((d, i) => {
             const isSelected = selectedId === d.id;
             return (
-              <motion.button key={d.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.08, ease: 'easeOut' }}
-                whileHover={{ y: -4 }}
-                onClick={() => setSelectedId(isSelected ? null : d.id)}
-                aria-pressed={isSelected}
-                className={`text-left rounded-2xl border-2 border-l-4 p-5 transition-all duration-300 cursor-pointer
-                  ${isSelected
-                    ? `${cardAccents[i]} border-opacity-100 shadow-lg`
-                    : 'bg-slate-50 border-slate-200 border-l-slate-300 hover:shadow-md hover:border-slate-300'}`}>
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-colors
-                  ${isSelected ? 'bg-blue-900 text-white' : 'bg-white text-slate-500 border border-slate-200'}`}>
-                  {getIcon(d.scientist)}
-                </div>
-                <p className={`text-3xl font-bold mb-1 ${isSelected ? 'text-blue-900' : 'text-slate-800'}`}>{d.year}</p>
-                <p className={`text-xs font-semibold mb-2 ${isSelected ? 'text-blue-700' : 'text-slate-500'}`}>{d.scientist}</p>
-                <p className={`text-sm font-medium leading-snug ${isSelected ? 'text-slate-800' : 'text-slate-600'}`}>{d.discovery}</p>
-                <div className={`mt-3 flex items-center gap-1 text-xs font-medium ${isSelected ? 'text-blue-600' : 'text-slate-400'}`}>
-                  Xem chi tiết <ArrowRight className="w-3 h-3" />
-                </div>
-              </motion.button>
+              <StaggerItem key={d.id}>
+                <motion.button
+                  whileHover={{ y: -4 }}
+                  onClick={() => setSelectedId(isSelected ? null : d.id)}
+                  aria-pressed={isSelected}
+                  className={`w-full text-left rounded-2xl border-2 border-l-4 p-5 transition-all duration-300 cursor-pointer
+                    ${isSelected
+                      ? `${cardAccents[i]} border-opacity-100 shadow-lg`
+                      : 'bg-slate-50 border-slate-200 border-l-slate-300 hover:shadow-md hover:border-slate-300'}`}>
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-colors
+                    ${isSelected ? 'bg-blue-900 text-white' : 'bg-white text-slate-500 border border-slate-200'}`}>
+                    {getIcon(d.scientist)}
+                  </div>
+                  <p className={`text-3xl font-bold mb-1 ${isSelected ? 'text-blue-900' : 'text-slate-800'}`}>{d.year}</p>
+                  <p className={`text-xs font-semibold mb-2 ${isSelected ? 'text-blue-700' : 'text-slate-500'}`}>{d.scientist}</p>
+                  <p className={`text-sm font-medium leading-snug ${isSelected ? 'text-slate-800' : 'text-slate-600'}`}>{d.discovery}</p>
+                  <div className={`mt-3 flex items-center gap-1 text-xs font-medium ${isSelected ? 'text-blue-600' : 'text-slate-400'}`}>
+                    Xem chi tiết <ArrowRight className="w-3 h-3" />
+                  </div>
+                </motion.button>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerContainer>
 
         {/* Detail panel */}
         <AnimatePresence mode="wait">

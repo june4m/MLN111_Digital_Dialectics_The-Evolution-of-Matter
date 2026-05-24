@@ -3,6 +3,8 @@ import { BookOpen, Globe, Library, ExternalLink } from 'lucide-react';
 import { references } from '../data/materialQuestData';
 import SectionHeader from './ui/SectionHeader';
 import Container from './ui/Container';
+import StaggerContainer from './ui/StaggerContainer';
+import StaggerItem from './ui/StaggerItem';
 
 const iconMap: Record<string, React.ReactNode> = {
   'giao-trinh-2021': <Library className="w-6 h-6" />,
@@ -20,36 +22,33 @@ export default function ReferencesSection() {
           subtitle="Các tài liệu chính thống được sử dụng trong việc xây dựng nội dung của Material Quest"
         />
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {references.map((ref, i) => (
-            <motion.div key={ref.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: i * 0.12, ease: 'easeOut' }}
-              className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-900 flex items-center justify-center text-amber-400 shrink-0">
-                  {iconMap[ref.id]}
+        <StaggerContainer className="grid md:grid-cols-3 gap-6">
+          {references.map((ref) => (
+            <StaggerItem key={ref.id}>
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 h-full">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-900 flex items-center justify-center text-amber-400 shrink-0">
+                    {iconMap[ref.id]}
+                  </div>
+                  <div>
+                    <h3 className="text-slate-800 font-bold leading-tight text-base">{ref.title}</h3>
+                    {ref.year && <span className="text-amber-600 text-sm font-semibold">{ref.year}</span>}
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-slate-800 font-bold leading-tight text-base">{ref.title}</h3>
-                  {ref.year && <span className="text-amber-600 text-sm font-semibold">{ref.year}</span>}
-                </div>
+
+                <p className="text-slate-500 text-sm leading-relaxed flex-1">{ref.description}</p>
+
+                {ref.url && (
+                  <a href={ref.url} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-blue-700 text-sm font-medium hover:text-blue-900 transition-colors">
+                    <ExternalLink className="w-4 h-4" />
+                    Truy cập tài liệu
+                  </a>
+                )}
               </div>
-
-              <p className="text-slate-500 text-sm leading-relaxed flex-1">{ref.description}</p>
-
-              {ref.url && (
-                <a href={ref.url} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-blue-700 text-sm font-medium hover:text-blue-900 transition-colors">
-                  <ExternalLink className="w-4 h-4" />
-                  Truy cập tài liệu
-                </a>
-              )}
-            </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* About section */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}

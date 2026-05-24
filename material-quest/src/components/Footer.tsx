@@ -40,7 +40,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-blue-900 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-500">© 2025 Material Quest. Tài liệu học thuật.</p>
+          <p className="text-xs text-slate-500">© 2026 Group 4 - SE1810. Tài liệu học thuật.</p>
           <p className="text-xs text-slate-500">Dựa trên Giáo trình Triết học Mác-Lênin, Bộ GD&ĐT 2021</p>
         </div>
       </div>

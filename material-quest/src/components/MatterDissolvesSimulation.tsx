@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Atom, Info } from 'lucide-react';
 import SectionHeader from './ui/SectionHeader';
 import Container from './ui/Container';
+import RevealOnScroll from './ui/RevealOnScroll';
 
 const QUOTE = 'Cái tiêu tan không phải là vật chất, mà là giới hạn hiểu biết cũ về vật chất.';
 
@@ -92,18 +93,20 @@ export default function MatterDissolvesSimulation() {
           </div>
 
           {/* Lenin quote */}
-          <div className="bg-blue-950 rounded-2xl p-6 md:p-8">
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center shrink-0">
-                <span className="text-white font-bold text-lg">"</span>
-              </div>
-              <div>
-                <p className="text-blue-100 italic text-lg leading-relaxed mb-3">"{QUOTE}"</p>
-                <p className="text-amber-400 font-semibold text-sm">— V.I. Lênin, 1908</p>
-                <p className="text-blue-400 text-xs mt-1">Chủ nghĩa duy vật và chủ nghĩa kinh nghiệm phê phán</p>
+          <RevealOnScroll delay={0.1} blur>
+            <div className="bg-blue-950 rounded-2xl p-6 md:p-8">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center shrink-0">
+                  <span className="text-white font-bold text-lg">"</span>
+                </div>
+                <div>
+                  <p className="text-blue-100 italic text-lg leading-relaxed mb-3">"{QUOTE}"</p>
+                  <p className="text-amber-400 font-semibold text-sm">— V.I. Lênin, 1908</p>
+                  <p className="text-blue-400 text-xs mt-1">Chủ nghĩa duy vật và chủ nghĩa kinh nghiệm phê phán</p>
+                </div>
               </div>
             </div>
-          </div>
+          </RevealOnScroll>
         </div>
       </Container>
     </section>
